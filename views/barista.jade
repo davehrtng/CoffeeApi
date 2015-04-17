@@ -1,0 +1,34 @@
+//   Created by David on 3/27/2015.
+
+extends layout
+
+block content
+    h2 just ordered
+    ul#orderedUl
+        for o in orders
+            if o.status == 'ordered'
+                li
+                    p.drink(id=o['orderNumber'], onclick="prepareOrder(event)")= o['drink']
+                    p.additions= o['additions']
+        else
+            li no new orders!
+
+    h2 preparing
+    ul#preparingUl
+        for o in orders
+            if o.status == 'preparing'
+                li(id=o['orderNumber'])
+                    p.drink= o['drink']
+                    p.additions= o['additions']
+        else
+            p no orders being prepped
+
+    h2 paid
+    ul#paidUl
+        for o in orders
+            if o.status == 'paid'
+                li
+                    p.drink(id=o['orderNumber'], onclick="finishOrder(event)")= o['drink']
+                    p.additions= o['additions']
+        else
+            p no orders are paid and awaiting completion

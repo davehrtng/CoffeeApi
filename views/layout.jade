@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title="Coffee Shop"
+    block scripts
+        link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/stylesheets/layout.css')
+        script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+        script(type='text/javascript', src='/javascripts/barista.js')
+  body
+    div.container
+      div.jumbotron
+          img#imgBannerLogo(src="/images/banner_logo_2.jpg" )
+      h1 Coffee Shop
+      p Welcome to the virtual coffee shop
+      ul#navigationUl(class="nav nav-tabs nav-justified")
+        li
+            a(href="/") home
+        li
+            a(href="/orders/new") place an order
+        li
+            a(href="/orders") view open orders
+        li
+            a(href="") customize an order
+      block content

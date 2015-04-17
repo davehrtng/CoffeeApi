@@ -1,0 +1,14 @@
+//
+   Created by David on 3/30/2015.
+
+extends layout
+
+block append scripts
+    script(type="text/javascript" src="/javascripts/createOrder.js")
+
+block content
+    input#drinkInput(type="text")
+    input#costInput(type="text")
+    button#submitButton(onclick="createOrder()") submit
+
+
