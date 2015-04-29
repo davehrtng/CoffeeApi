@@ -10,8 +10,4 @@ router.get('/', function(req, res, next) {
     res.render('barista');
 });
 
-router.get('/new', function(req, res, next){
-   res.render('createOrder');
-});
-
 module.exports = router;

@@ -41,11 +41,13 @@ function validateAdditions(requestBody) {
     return errors;
 }
 
+
 router.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+
 
 /* GET orders listing. */
 router.get('/', function(req, res, next) {
@@ -74,7 +76,7 @@ router.get('/:id', function(req, res, next){
 });
 
 /* POST a new order*/
-router.post('/', function (req, res, next) {
+router.post('/', function(req, res, next) {
     var errors = validatePostedOrder(req.body);
     if(errors.length===0) {
         console.log(orderCounter);
