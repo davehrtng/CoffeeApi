@@ -9,6 +9,7 @@
     <script type="text/javascript" src="/javascripts/app.js"></script>
     <script type="text/javascript" src="/javascripts/OrdersController.js"></script>
     <script type="text/javascript" src="/javascripts/services.js"></script>
+    <script type="text/javascript" src="/javascripts/directives.js"></script>
     <!--jQuery for bootstrap-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <!--Bootstrap-->
@@ -21,7 +22,9 @@
     <h1>Barista Workstation</h1>
 
     <div id="ordersDiv" ng-controller="OrdersCtrl">
-
+        <div id="ordersListDiv" ng-repeat="order in orderArray">
+            <order info="order"></order>
+        </div>
     </div>
 </div>
 </body>
