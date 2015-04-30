@@ -1,7 +1,21 @@
-<div>
-    <h3>{{order.drink}}</h3>
-    <p>{{order.cost}}</p>
-    <ul class="additions">
+<div class="order">
+    <h4 >{{order.drink}}</h4>
+    <p>{{order.cost | currency}}</p>
+    <ul class="additions list-inline">
         <li ng-repeat="addition in order.additions">{{addition}}</li>
+    </ul>
+    <ul class="actions list-inline">
+        <li ng-if="order.status == 'ordered'">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </li>
+        <li ng-if="order.status == 'ordered'">
+            <span class="glyphicon glyphicon-user" ng-click="assignOrder(order.uri)"></span>
+        </li>
+        <li ng-if="order.status == 'preparing'">
+            <span class="glyphicon glyphicon-shopping-cart" ng-click="makePayment(order.uri)"></span>
+        </li>
+        <li ng-if="order.status == 'paid'">
+            <span class="glyphicon glyphicon-ok" ng-click="completeOrder(order.uri)"></span>
+        </li>
     </ul>
 </div>

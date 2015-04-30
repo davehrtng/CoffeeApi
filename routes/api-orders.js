@@ -83,7 +83,7 @@ router.post('/', function(req, res, next) {
         orderCounter++;
         var newOrder = new Order({
             orderNumber: orderCounter,
-            status: "preparing",
+            status: "ordered",
             drink: req.body.drink,
             cost: req.body.cost,
             additions: []
@@ -110,38 +110,36 @@ router.post('/', function(req, res, next) {
 * body should be json containing "additions":[Array of Strings]
 * Appends all additions to the existing additions array (does not overwrite previous additions).
 * */
-router.put('/additions/:id', function(req, res, next){
-    if(!req.body.hasOwnProperty('additions')){
-        req.status(400).send();
+router.put('/:id', function(req, res, next){
+    if(req.body.hasOwnProperty('additions')) {
+        Order.findOneAndUpdate({orderNumber: req.params.id}, {$push: {additions: {$each: req.body.additions}}}, {new: true}, function (err, order) {
+            if (err) res.status(500).send();
+            if (order) {
+                res.status(200).json({
+                    "orders": [order.makePublic()]
+                });
+            } else {
+                res.status(404).json(notFoundResponse);
+            }
+        });
     }
-    Order.findOneAndUpdate({orderNumber: req.params.id}, {$push: {additions: {$each: req.body.additions}}}, {new: true}, function (err, order) {
-        if (err) res.status(500).send();
-        if (order) {
-            res.status(200).json({
-                "orders": [order.makePublic()]
-            });
-        } else {
-            res.status(404).json(notFoundResponse);
-        }
-    });
-});
-
-/*PUT update the status of an order */
-router.put('/status/:id', function(req, res, next){
-    if(!req.body.hasOwnProperty('status')){
+    else if(req.body.hasOwnProperty('status')){
+        Order.findOneAndUpdate({orderNumber: req.params.id}, {$set: {status: req.body.status}}, {new: true}, function (error,order) {
+            if (error) res.status(500).send();
+            if (order) {
+                res.status(200).json({
+                    "orders": [order.makePublic()]
+                });
+            } else {
+                res.status(404).json(notFoundResponse);
+            }
+        });
+    }
+    else {
         res.status(400).send();
     }
-    Order.findOneAndUpdate({orderNumber: req.params.id}, {$set: {status: req.body.status}}, {new: true}, function (error,order) {
-        if (error) res.status(500).send();
-        if (order) {
-            res.status(200).json({
-                "orders": [order.makePublic()]
-            });
-        } else {
-            res.status(404).json(notFoundResponse);
-        }
-    });
 });
+
 
 /* DELETE order with specified orderNumber */
 router.delete('/:id', function(req, res, next){

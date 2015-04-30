@@ -13,7 +13,7 @@ var orderSchema = mongoose.Schema({
 
 orderSchema.methods.makePublic = function() {
     return {
-        uri: "localhost:3000/orders/" + this.orderNumber,
+        uri: "http://localhost:3000/api/orders/" + this.orderNumber,
         status:this.status,
         drink:this.drink,
         cost:this.cost,

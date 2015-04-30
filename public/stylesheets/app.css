@@ -1,0 +1,41 @@
+ul.additions li{
+    font-style: italic;
+}
+
+div#ordersDiv{
+    color: white;
+}
+
+div.order {
+    border-style: solid;
+    border-width: thin;
+    border-color: white;
+}
+
+h2 {
+    color: white;
+}
+
+select {
+    color: black;
+}
+
+div#newOrderDiv {
+    background-color: lightblue;
+}
+
+div#orderedDiv {
+    background-color:green;
+}
+
+div#preparingDiv {
+    background-color:orange;
+}
+
+div#paidDiv {
+    background-color:orangered;
+}
+
+div#doneDiv{
+    background-color:red;
+}

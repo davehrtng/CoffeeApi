@@ -16,14 +16,53 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!--Custom styling-->
+    <link rel="stylesheet" href="/stylesheets/app.css">
 </head>
 <body>
 <div class="container">
     <h1>Barista Workstation</h1>
 
     <div id="ordersDiv" ng-controller="OrdersCtrl">
-        <div id="ordersListDiv" ng-repeat="order in orderArray">
-            <order info="order"></order>
+
+        <div id="newOrderDiv">
+            <h2>New Order</h2>
+            <select name="newOrderSelect" ng-model="newOrder">
+                <option value='{"drink":"drip", "cost":1.91}'>drip</option>
+                <option value='{"drink":"tea", "cost":1.75}'>tea</option>
+                <option value='{"drink":"latte", "cost":2.75}'>latte</option>
+                <option value='{"drink":"cappuccino", "cost":3.50}'>cappuccino</option>
+                <option value='{"drink":"frappuccino", "cost":4.25}'>frappuccino</option>
+            </select>
+            <span class="glyphicon glyphicon-plus" ng-click="createOrder()"></span>
+        </div>
+
+        <div id="orderedDiv">
+            <h2>Ordered</h2>
+            <div id="orderedDiv" ng-repeat="order in orderArray | filter:{status:'ordered'}">
+                <order info="order"></order>
+            </div>
+        </div>
+
+        <div id="preparingDiv">
+            <h2>Preparing</h2>
+            <div id="preparingDiv" ng-repeat="order in orderArray | filter:{status:'preparing'}">
+                <order info="order"></order>
+            </div>
+        </div>
+
+        <div id="paidDiv">
+            <h2>Paid</h2>
+            <div id="paidDiv" ng-repeat="order in orderArray | filter:{status:'paid'}">
+                <order info="order"></order>
+            </div>
+        </div>
+
+        <div id="doneDiv">
+            <h2>Done</h2>
+            <div id="doneDiv" ng-repeat="order in orderArray | filter:{status:'done'}">
+                <order info="order"></order>
+            </div>
         </div>
     </div>
 </div>
