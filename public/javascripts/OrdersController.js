@@ -25,10 +25,10 @@ app.controller('OrdersCtrl', ['$scope', '$http', 'orderService', function ($scop
             });
     }
 
-    $scope.assignOrder = function(uri) {
+    $scope.assignOrder = function(orderUri) {
         var data = {status: "preparing"};
 
-        $http.put(uri, data)
+        $http.put(orderUri, data)
             .success(function(data, status, header, config){
                $scope.getOrders();
             })
@@ -37,17 +37,28 @@ app.controller('OrdersCtrl', ['$scope', '$http', 'orderService', function ($scop
             });
     }
 
+    $scope.addAdditions = function(orderUri){
+        console.log('add additions fired');
+        var additions = getAdditions();
+        $http.put(orderUri, {additions:additions})
+            .success(function(data, status, header, config){
+                clearCheckboxes();
+                $scope.getOrders();
+            })
+            .error(function(data, status, header, config){
+                console.log(data);
+                console.log(status);
+            })
+    }
+
     $scope.makePayment = function(orderUri){
+        console.log("make payment fired");
         var indexOfOrders = orderUri.lastIndexOf("orders");
         var uri = orderUri.slice(0, indexOfOrders) + "payments/" + orderUri.slice(indexOfOrders, orderUri.length);
-        // for now, just use default values for payment information
-        // need to add functionality to take the info from the customer
-        var data = {
-          name:"David Harting",
-            cardNumber: "1234-2345-3456-4567",
-            expirationDate: "01/20"
-        };
-        $http.post(uri, data)
+        var orderId = uri.slice(uri.lastIndexOf('/')+1, uri.length);
+        var paymentData = getPaymentInformation(orderId);
+
+        $http.post(uri, paymentData)
             .success(function(data, status, header, config){
                 $scope.getOrders();
             })
@@ -66,5 +77,17 @@ app.controller('OrdersCtrl', ['$scope', '$http', 'orderService', function ($scop
                 console.log(data);
                 console.log(status);
             })
+    }
+
+    $scope.deleteOrder = function(orderUri){
+        $http.delete(orderUri)
+            .success(function(data, status, header, config){
+                $scope.getOrders();
+            })
+            .error(function(data, status, header, config){
+                console.log(data);
+                console.log(status);
+            });
+
     }
 }]);

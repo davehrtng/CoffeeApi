@@ -6,13 +6,24 @@
     </ul>
     <ul class="actions list-inline">
         <li ng-if="order.status == 'ordered'">
-            <span class="glyphicon glyphicon-pencil"></span>
+            <input name="addition" type="checkbox" value="syrup"> syrup
+            <input name="addition" type="checkbox" value="extra shot"> extra shot
+            <input name="addition" type="checkbox" value="non-fat"> non-fat
+            <input name="addition" type="checkbox" value="sugar-free"> sugar-free
+            <input name="addition" type="checkbox" value="no whip"> no whip
+            <span class="glyphicon glyphicon-pencil" ng-click="addAdditions(order.uri)"></span>
         </li>
         <li ng-if="order.status == 'ordered'">
             <span class="glyphicon glyphicon-user" ng-click="assignOrder(order.uri)"></span>
         </li>
         <li ng-if="order.status == 'preparing'">
+            <input class="payment{{::order.uri.slice(order.uri.lastIndexOf('/')+1, order.uri.length)}}" name="name" type="text" placeholder="Customer name">
+            <input class="payment{{::order.uri.slice(order.uri.lastIndexOf('/')+1, order.uri.length)}}" name="cardNumber" type="text" placeholder="Credit card number">
+            <input class="payment{{::order.uri.slice(order.uri.lastIndexOf('/')+1, order.uri.length)}}" name="expirationDate" type="month">
             <span class="glyphicon glyphicon-shopping-cart" ng-click="makePayment(order.uri)"></span>
+        </li>
+        <li ng-if="order.status == 'ordered' || order.status == 'preparing'">
+            <span class="glyphicon glyphicon-remove" ng-click="deleteOrder(order.uri)"></span>
         </li>
         <li ng-if="order.status == 'paid'">
             <span class="glyphicon glyphicon-ok" ng-click="completeOrder(order.uri)"></span>
