@@ -45,13 +45,14 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// mongoose configuration
-mongoose.connect('mongodb://localhost/Coffee');
+// Mongoose for connecting to mongo and doing ORM
+// heroku injects a config variable for the mongo connection. when running locally, just hit my own mongo.
+var mongoConnecionUri = process.env.MONGODB_URI ? process.env.MONGODB_URI : 'mongodb://localhost/Coffee';
+mongoose.connect(process.env.MONGODB_URI);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(callback){
     console.log('Mongoose connected to orders!');
-
 });
 
 
