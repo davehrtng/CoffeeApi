@@ -16,10 +16,6 @@ h2 {
     color: white;
 }
 
-input {
-    color: black;
-}
-
 div#newOrderDiv {
     background-color: lightblue;
 }
@@ -38,4 +34,13 @@ div#paidDiv {
 
 div#doneDiv{
     background-color:red;
+}
+
+/* We want text color of inputs to be black so that it shows against their white background */
+input {
+    color: black;
+}
+
+select {
+  color: black;
 }
