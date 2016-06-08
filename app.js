@@ -22,7 +22,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // serve up the favicon. before logging for less clutter.
-app.use(favicon(__dirname + '/public/images/favicon.ico'));
+var faviconPath = path.join(__dirname, '/public/images/favicon.ico');
+app.use(favicon(faviconPath));
 
 app.use(logger('dev'));
 
