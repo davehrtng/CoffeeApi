@@ -13,6 +13,7 @@ var orderSchema = mongoose.Schema({
 
 orderSchema.methods.makePublic = function() {
     return {
+        // TODO: this URI needs to be relative
         uri: "http://localhost:3000/api/orders/" + this.orderNumber,
         status:this.status,
         drink:this.drink,

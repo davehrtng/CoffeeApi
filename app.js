@@ -17,6 +17,9 @@ var baristaView = require('./routes/barista');
 
 var app = express();
 
+// figure out which port to run the app on
+app.set('port', (process.env.PORT || 3000));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -86,8 +89,9 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(3000, function(){
-	console.log('Listening on port 3000.');
+var port = app.get('port');
+app.listen(port, function(){
+	console.log('Listening on port %s.', port);
 });
 
 module.exports = app;

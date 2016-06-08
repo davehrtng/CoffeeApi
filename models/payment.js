@@ -13,6 +13,7 @@ var paymentSchema = mongoose.Schema({
 
 paymentSchema.methods.makePublic = function() {
     return {
+        // TODO: this URI needs to be relative
         uri: "localhost:3000/payments/orders/" + this.orderNumber,
         cardNumber:this.cardNumber,
         expirationDate:this.expirationDate,
