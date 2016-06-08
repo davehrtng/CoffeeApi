@@ -21,13 +21,18 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+// serve up the favicon. before logging for less clutter.
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
+
 app.use(logger('dev'));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(cors());
 
 // set up API routes
@@ -48,7 +53,7 @@ app.use(function(req, res, next) {
 // Mongoose for connecting to mongo and doing ORM
 // heroku injects a config variable for the mongo connection. when running locally, just hit my own mongo.
 var mongoConnecionUri = process.env.MONGODB_URI ? process.env.MONGODB_URI : 'mongodb://localhost/Coffee';
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(mongoConnecionUri);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(callback){
