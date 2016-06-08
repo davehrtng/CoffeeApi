@@ -30,11 +30,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
-app.use('/', routes);
+// set up API routes
 app.use('/api/users', usersApi);
 app.use('/api/orders', ordersApi);
 app.use('/api/payments', paymentsApi);
-app.use('/barista', baristaView);
+
+// serves up the single-page app
+app.use('/', baristaView);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -77,5 +79,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
+app.listen(3000, function(){
+	console.log('Listening on port 3000.');
+});
 
 module.exports = app;
