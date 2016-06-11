@@ -16,7 +16,7 @@ app.controller('OrdersCtrl', ['$scope', '$http', 'orderService', function ($scop
     $scope.newOrder = {};
 
     $scope.createOrder = function(){
-        $http.post('http://localhost:3000/api/orders', JSON.parse($scope.newOrder))
+        $http.post('/api/orders', JSON.parse($scope.newOrder))
             .success(function(data, status, header, config){
                 $scope.getOrders();
             })
